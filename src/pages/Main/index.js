@@ -1,8 +1,14 @@
 import React from 'react';
+import './styles.css';
+
+import Footer from '../../components/Footer';
 
 function Main() {
 	return (
-		<div>Main</div>
+		<main className="main-page">
+			<div>Main</div>
+			<Footer/>
+		</main>
 	);
 }
 

@@ -1,0 +1,17 @@
+footer.footer {
+	grid-area: footer;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	background: #C2C2C2;
+	border-top: solid 2px #424242;
+
+	font-size: 1.2em;
+}
+
+footer.footer a {
+	text-decoration: none;
+}
