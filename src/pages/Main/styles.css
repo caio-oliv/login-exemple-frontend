@@ -1,11 +1,44 @@
-main.main-page {
+div.main-page {
 	height: 100vh;
 
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 1fr 3fr 40px;
+	grid-template-rows: 1fr 40px;
 	grid-template-areas:
-		'header'
-		'main'
+		'content'
 		'footer';
+}
+
+.main-page-content {
+	grid-area: content;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	background: rgb(200, 192, 236);
+}
+
+form.login-form {
+	grid-area: content;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 400px;
+	width: 300px;
+	padding: 40px;
+
+	background: rgb(204, 204, 204);
+	border-radius: 10px;
+	box-shadow: 0px 0px 15px 2px black;
+}
+
+.login-form input, .login-form button {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 10px;
 }

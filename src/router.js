@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Main from './pages/Main';
 
 function Routes() {
@@ -9,7 +9,7 @@ function Routes() {
 		<BrowserRouter>
 			<Switch>
 				<Route path="/" exact component={Main}/>
-				<Route path="/login" component={Login}/>
+				<Route path="/signup" component={Signup}/>
 			</Switch>
 		</BrowserRouter>
 	)
