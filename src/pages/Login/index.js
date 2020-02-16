@@ -4,7 +4,7 @@ import './styles.css';
 
 import Footer from '../../components/Footer';
 
-function Main() {
+function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -25,8 +25,8 @@ function Main() {
 	}
 
 	return (
-		<div className="main-page">
-			<div className="main-page-content">
+		<div className="login-page">
+			<div className="login-page-content">
 				<form onSubmit={handleSubmit} className="login-form">
 					<input
 						type="email"
@@ -50,4 +50,4 @@ function Main() {
 	);
 }
 
-export default Main;
+export default Login;

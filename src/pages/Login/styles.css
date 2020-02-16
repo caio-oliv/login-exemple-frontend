@@ -1,4 +1,4 @@
-div.main-page {
+div.login-page {
 	height: 100vh;
 
 	display: grid;
@@ -9,7 +9,7 @@ div.main-page {
 		'footer';
 }
 
-.main-page-content {
+.login-page-content {
 	grid-area: content;
 
 	display: flex;

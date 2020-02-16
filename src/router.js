@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Signup from './pages/Signup';
-import Main from './pages/Main';
+import Login from './pages/Login';
 
 function Routes() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route path="/" exact component={Main}/>
+				<Route path="/" exact component={Login}/>
 				<Route path="/signup" component={Signup}/>
 			</Switch>
 		</BrowserRouter>
