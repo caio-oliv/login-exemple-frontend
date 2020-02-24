@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Signup from './pages/Signup';
-import Login from './pages/Login';
+import PrivateRoute from "./components/PrivateRoute";
+
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 import User from './pages/User';
 
 function Routes() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				<Route path="/" exact component={Login}/>
-				<Route path="/signup" component={Signup}/>
-				<Route path="/user/:id" component={User}/>
+				<Route path="/" exact component={SignIn}/>
+				<Route path="/signup" component={SignUp}/>
+				<PrivateRoute path="/user/:id" component={User}/>
 			</Switch>
 		</BrowserRouter>
 	)

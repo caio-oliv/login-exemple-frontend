@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
+import auth from '../../services/auth';
 import './styles.css';
 
 import Footer from '../../components/Footer';
 
-function Login() {
+function SignIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const history = useHistory();
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 
 		try {
-			const res = await api.post('/login', {
-				email,
-				password
+			const res = await api.post('/auth/authenticate', {
+				email, password
 			});
+			
+			auth.login(res.data.token);
 
-			console.log(res.data);
+			history.push(`/user/${res.data.user.id}`);
 
 		} catch (err) {
-			console.log(err);
+			alert(err.response.data.error);
 		}
 	}
 
 	return (
-		<div className="login-page">
-			<div className="login-page-content">
-				<form onSubmit={handleSubmit} className="login-form">
+		<div className="signin-page">
+			<div className="signin-page-content">
+				<form onSubmit={handleSubmit} className="signin-form">
 					<input
 						type="email"
 						name="email"
@@ -50,4 +54,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default SignIn;

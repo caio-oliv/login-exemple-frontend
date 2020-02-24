@@ -1,4 +1,4 @@
-div.login-page {
+div.signin-page {
 	height: 100vh;
 
 	display: grid;
@@ -9,7 +9,7 @@ div.login-page {
 		'footer';
 }
 
-.login-page-content {
+.signin-page-content {
 	grid-area: content;
 
 	display: flex;
@@ -20,7 +20,7 @@ div.login-page {
 	background: rgb(200, 192, 236);
 }
 
-form.login-form {
+form.signin-form {
 	grid-area: content;
 
 	display: flex;
@@ -37,7 +37,7 @@ form.login-form {
 	box-shadow: 0px 0px 15px 2px black;
 }
 
-.login-form input, .login-form button {
+.signin-form input, .signin-form button {
 	width: 100%;
 	margin-bottom: 20px;
 	padding: 10px;
