@@ -5,7 +5,7 @@ import api from '../../services/api';
 import auth from '../../services/auth';
 
 import Footer from '../../components/Footer';
-import Input from '../../components/Form/Input';
+import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { Container, Form } from './styles';
