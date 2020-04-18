@@ -14,6 +14,8 @@ function Routes() {
 				<Route path="/" exact component={SignIn}/>
 				<Route path="/signup" component={SignUp}/>
 				<PrivateRoute path="/user/:id" component={User}/>
+				<PrivateRoute path="/users" component={() => (<div>User list</div>)}/>
+				<Route path="*" component={SignIn} />
 			</Switch>
 		</BrowserRouter>
 	)

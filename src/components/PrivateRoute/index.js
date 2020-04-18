@@ -5,13 +5,18 @@ import auth from '../../services/auth';
 function PrivateRoute({ component: Component, ...rest }) {
 	return (
 		<Route {...rest} render={(props) => (
-			auth.isAuthenticated() ? (
-				<Component {...props} />
-			) : (
-				<Redirect to={{ pathname: '/' }} />
-			)
-		)} />
-	)
+				auth.isAuthenticated() ? (
+					<Component {...props} />
+				) : (
+					<Redirect to={{
+							pathname: '/',
+							state: { from: props.location }
+						}}
+					/>
+				)
+			)}
+		/>
+	);
 }
 
 export default PrivateRoute;

@@ -1,56 +1,58 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+
 import api from '../../services/api';
 import auth from '../../services/auth';
-import './styles.css';
 
 import Footer from '../../components/Footer';
+import Input from '../../components/Form/Input';
+import Button from '../../components/Button';
+
+import { Container, Form } from './styles';
 
 function SignIn() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
 	const history = useHistory();
 
-	async function handleSubmit(event) {
-		event.preventDefault();
-
+	async function handleSubmit(formData) {
 		try {
-			const res = await api.post('/auth/authenticate', {
-				email, password
+			const response = await api.post('session', {
+				...formData,
+				email: formData.username
 			});
-			
-			auth.login(res.data.token);
 
-			history.push(`/user/${res.data.user.id}`);
+			const { user, token } = response.data;
+
+			auth.login(token);
+			history.push(`/user/${user.id}`);
 
 		} catch (err) {
-			alert(err.response.data.error);
+			const status = err.response?.status;
+
+			if (status === 401)
+				alert('Senha incorreta');
+			else if (status === 400)
+				alert('Usuário não encontrado');
+			else
+				alert('Ocorreu um erro durante o login, tente novamente');
 		}
 	}
 
 	return (
-		<div className="signin-page">
-			<div className="signin-page-content">
-				<form onSubmit={handleSubmit} className="signin-form">
-					<input
-						type="email"
-						name="email"
-						placeholder="E-mail"
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-					/>
-					<input
-						type="password"
-						name="password"
-						placeholder="Senha"
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-					/>
-					<button type="submit">Entrar</button>
-				</form>
+		<Container>
+			<div>
+				<Form onSubmit={handleSubmit}>
+					<h1>Login</h1>
+
+					<Input type="text" name="username" placeholder="E-mail ou usuário" />
+					<Input type="password" name="password" placeholder="Senha" />
+
+					<Button type="submit">Entrar</Button>
+
+					<Link to="/signup">Não possuo uma conta</Link>
+				</Form>
 			</div>
-			<Footer/>
-		</div>
+			<Footer />
+		</Container>
 	);
 }
 

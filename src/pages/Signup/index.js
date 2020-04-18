@@ -1,8 +1,13 @@
 import React from 'react';
 
+import Footer from '../../components/Footer';
+
 function SignUp() {
 	return (
-		<div>Signup</div>
+		<div>
+			<div>Signup</div>
+			<Footer />
+		</div>
 	);
 }
 

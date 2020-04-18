@@ -1,13 +1,14 @@
 import React from 'react';
-import './styles.css';
+
+import Component from './styles';
 
 function Footer() {
 	return (
-		<footer className="footer">
+		<Component>
 			<p>
 				Desenvolvido por <a href="https://github.com/CaioOliveira793" target="_blank" rel="noopener noreferrer">Caio Oliveira</a>
 			</p>
-		</footer>
+		</Component>
 	);
 }
 
