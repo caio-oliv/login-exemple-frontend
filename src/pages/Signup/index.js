@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import auth from '../../services/auth';
@@ -7,6 +7,8 @@ import auth from '../../services/auth';
 import Footer from '../../components/Footer';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Link from '../../components/Link';
+
 import { Container, Form, InputGroup } from './styles';
 
 function SignUp() {

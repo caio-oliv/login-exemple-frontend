@@ -36,15 +36,6 @@ export const Form = styled(Unform)`
 		font-weight: normal;
 		font-size: 2.3em;
 	}
-
-	a {
-		text-align: center;
-		text-decoration: none;
-
-		margin-top: 32px;
-
-		color: ${({ theme }) => theme.colors.secondary};
-	}
 `;
 
 export const InputGroup = styled.div`

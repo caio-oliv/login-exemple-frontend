@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import auth from '../../services/auth';
@@ -7,6 +7,7 @@ import auth from '../../services/auth';
 import Footer from '../../components/Footer';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Link from '../../components/Link';
 
 import { Container, Form } from './styles';
 
@@ -47,7 +48,6 @@ function SignIn() {
 					<Input type="password" name="password" placeholder="Senha" />
 
 					<Button type="submit">Entrar</Button>
-
 					<Link to="/signup">Não possuo uma conta</Link>
 				</Form>
 			</div>
