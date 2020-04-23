@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
+import UnstyledLink from '../../components/Link';
 
 export const Container = styled.div`
 	height: 100vh;
@@ -36,4 +37,8 @@ export const Form = styled(Unform)`
 		font-weight: normal;
 		font-size: 2.3em;
 	}
+`;
+
+export const Link = styled(UnstyledLink)`
+	margin-top: 32px;
 `;

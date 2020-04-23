@@ -7,9 +7,8 @@ import auth from '../../services/auth';
 import Footer from '../../components/Footer';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import Link from '../../components/Link';
 
-import { Container, Form } from './styles';
+import { Container, Form, Link } from './styles';
 
 function SignIn() {
 	const history = useHistory();

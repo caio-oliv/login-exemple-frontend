@@ -9,10 +9,8 @@ import light from './styles/themes/light';
 function App() {
   return (
 		<ThemeProvider theme={light}>
-			<div className="app">
-				<GlobalStyle />
-				<Router/>
-			</div>
+			<GlobalStyle />
+			<Router />
 		</ThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
+import UnstyledLink from '../../components/Link';
 
 export const Container = styled.div`
 	height: 100vh;
@@ -47,4 +48,8 @@ export const InputGroup = styled.div`
 	div {
 		width: 49%;
 	}
+`;
+
+export const Link = styled(UnstyledLink)`
+	margin-top: 32px;
 `;

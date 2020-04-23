@@ -1,13 +1,17 @@
 import React from 'react';
 
+import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+
+import { Container } from './styles';
 
 function User() {
 	return (
-		<div>
+		<Container>
+			<Header />
 			<div>User page</div>
 			<Footer />
-		</div>
+		</Container>
 	);
 }
 
