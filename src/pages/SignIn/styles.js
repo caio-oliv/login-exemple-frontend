@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
+import UnstyledInput from '../../components/Input';
 import UnstyledLink from '../../components/Link';
 
 export const Container = styled.div`
@@ -37,6 +38,10 @@ export const Form = styled(Unform)`
 		font-weight: normal;
 		font-size: 2.3em;
 	}
+`;
+
+export const Input = styled(UnstyledInput)`
+	margin-bottom: 15px;
 `;
 
 export const Link = styled(UnstyledLink)`

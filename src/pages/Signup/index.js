@@ -5,10 +5,9 @@ import api from '../../services/api';
 import auth from '../../services/auth';
 
 import Footer from '../../components/Footer';
-import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Form, InputGroup, Link } from './styles';
+import { Container, Form, Input, InputGroup, Link } from './styles';
 
 function SignUp() {
 	const history = useHistory();

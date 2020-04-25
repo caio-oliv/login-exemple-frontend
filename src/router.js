@@ -6,6 +6,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
+import UserList from './pages/UserList';
 
 function Routes() {
 	return (
@@ -14,7 +15,7 @@ function Routes() {
 				<Route path="/" exact component={SignIn}/>
 				<Route path="/signup" component={SignUp}/>
 				<PrivateRoute path="/user/:id" component={User}/>
-				<PrivateRoute path="/users" component={() => (<div>User list</div>)}/>
+				<PrivateRoute path="/users" component={UserList}/>
 				<Route path="*" component={SignIn} />
 			</Switch>
 		</BrowserRouter>

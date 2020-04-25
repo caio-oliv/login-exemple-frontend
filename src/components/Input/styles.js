@@ -16,7 +16,6 @@ export const Component = styled.div`
 
 	input {
 		width: 100%;
-		margin-bottom: 15px;
 		padding: 8px 10px;
 		border-radius: 2px;
 		border: 1px solid ${({ theme }) => theme.colors.border};

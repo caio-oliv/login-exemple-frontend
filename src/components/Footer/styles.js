@@ -7,11 +7,14 @@ export default styled.footer`
 	align-items: center;
 
 	width: 100%;
-	height: 35px;
 	background: ${({ theme }) => theme.colors.primary};
 	border-top: solid 2px ${({ theme }) => theme.colors.border};
 
 	font-size: 1.1em;
+
+	p {
+		padding: 8px 0px;
+	}
 
 	a {
 		text-decoration: none;
