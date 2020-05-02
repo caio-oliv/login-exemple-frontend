@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 
 import api from '../../services/api';
-
-import useQuery from '../../hooks/useQuery';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -17,8 +15,7 @@ import { Container, Search, Table } from './styles';
 function UserList() {
 	const theme = useContext(ThemeContext);
 	const history = useHistory();
-	const location = useLocation();
-	const query = useQuery();
+	const query = new URLSearchParams(history.location.search);
 
 	const [params, setParams] = useState({
 		firstName: query.get('first') || '',
@@ -26,64 +23,64 @@ function UserList() {
 	});
 	const [data, setData] = useState({
 		loading: true,
-		users: { pages: 1, [params.currentPage]: [] }
+		users: {
+			pages: 1,
+			[params.currentPage]: []
+		}
 	});
 
-	useEffect((() => {
-		let searchedParams = params;
-		let searchedPages = [];
+	document.title = 'Usuários da aplicação';
 
-		return () => {
-			async function search() {
-				console.log('useEffect called -> search');
+	useEffect(() => {
+		async function search() {
+			setData((oldData) => ({
+				loading: true,
+				users: {
+					pages: 1,
+					[params.currentPage]: []
+				}
+			}));
 
-				setData({
-					loading: true,
-					users: {
-						pages: 1,
-						[params.currentPage]: []
+			const query = new URLSearchParams(history.location.search);
+
+			query.set('first', params.firstName);
+			query.set('page', params.currentPage);
+
+			history.location.search = query.toString();
+			history.push(history.location);
+
+			try {
+				const response = await api.get('users', {
+					params: {
+						first: params.firstName,
+						page: params.currentPage
 					}
 				});
 
-				query.set('first', params.firstName);
-				query.set('page', params.currentPage);
-				location.search = query.toString();
-				history.push(location);
+				const totalUsers = response.headers['x-total-count'];
+				const pages = parseInt(totalUsers / 10 + ((totalUsers % 10) ? 1 : 0));
 
-				console.log('navigated');
+				setData((oldData) => ({
+					loading: false,
+					users: {
+						...oldData.users,
+						[params.currentPage]: response.data,
+						pages
+					}
+				}));
+			} catch (err) {
+				setData((oldData) => ({
+					...oldData,
+					loading: false,
+				}));
 
-				try {
-					const response = await api.get('users', {
-						params: {
-							first: params.firstName,
-							page: params.currentPage
-						}
-					});
+				const status = err.response?.status;
 
-					const totalUsers = response.headers['x-total-count'];
-					const pages = parseInt(totalUsers / 10 + ((totalUsers % 10) ? 1 : 0));
-
-					setData((oldData) => ({
-						loading: false,
-						users: {
-							...oldData.users,
-							[params.currentPage]: response.data,
-							pages
-						}
-					}));
-
-					console.log('data updated');
-				} catch (err) {
-					console.log(err);
-					setData((oldData) => ({
-						...oldData,
-						loading: false,
-					}));
-				}
+				if (status === 401) history.push('/');
 			}
-			search();
 		}
-	})(), [params]);
+		search();
+	}, [history, params]);
 
 	function handleSubmit(formData) {
 		setParams({

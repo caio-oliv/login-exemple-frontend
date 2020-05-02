@@ -11,17 +11,18 @@ export const Container = styled.div`
 
 	section {
 		width: 100%;
-		height: 100%;
 		padding: 20px 40px;
 
 		> div {
-			display: block;
+			display: flex;
+			flex-flow: column nowrap;
+			align-items: center;
+			justify-content: center;
 
 			padding: 15px;
 			margin: 20px 0px;
 			border-radius: 10px;
 			overflow: auto;
-			max-height: 500px;
 
 			background: #F2F2F2;
 		}
