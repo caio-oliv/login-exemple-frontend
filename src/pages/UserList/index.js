@@ -8,7 +8,7 @@ import api from '../../services/api';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Input from '../../components/Input';
-import ContentNavigation from '../../components/ContentNavigation';
+import Pagination from '../../components/Pagination';
 
 import { Container, Search, Table } from './styles';
 
@@ -36,8 +36,8 @@ function UserList() {
 			setData((oldData) => ({
 				loading: true,
 				users: {
-					pages: 1,
-					[params.currentPage]: []
+					...oldData.users,
+					pages: 1
 				}
 			}));
 
@@ -123,7 +123,7 @@ function UserList() {
 							))}
 						</tbody>
 					</Table>
-					<ContentNavigation
+					<Pagination
 						pages={data.users.pages}
 						currentPage={params.currentPage}
 						onPageChange={(newPage) => setParams((oldParams) => ({
