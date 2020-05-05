@@ -21,24 +21,20 @@ function UserList() {
 		firstName: query.get('first') || '',
 		currentPage: parseInt(query.get('page')) || 1
 	});
-	const [data, setData] = useState({
+	const [usersResponse, setUsersResponse] = useState({
 		loading: true,
-		users: {
-			pages: 1,
-			[params.currentPage]: []
-		}
+		pages: 1,
+		users: []
 	});
 
 	document.title = 'Usuários da aplicação';
 
 	useEffect(() => {
 		async function search() {
-			setData((oldData) => ({
+			setUsersResponse((oldUsersResponse) => ({
+				...oldUsersResponse,
 				loading: true,
-				users: {
-					...oldData.users,
-					pages: 1
-				}
+				pages: 1
 			}));
 
 			const query = new URLSearchParams(history.location.search);
@@ -58,19 +54,17 @@ function UserList() {
 				});
 
 				const totalUsers = response.headers['x-total-count'];
-				const pages = parseInt(totalUsers / 10 + ((totalUsers % 10) ? 1 : 0));
+				const pages = parseInt(totalUsers / 10 +
+					((totalUsers % 10) ? 1 : 0));
 
-				setData((oldData) => ({
+				setUsersResponse({
 					loading: false,
-					users: {
-						...oldData.users,
-						[params.currentPage]: response.data,
-						pages
-					}
-				}));
+					users: response.data,
+					pages
+				});
 			} catch (err) {
-				setData((oldData) => ({
-					...oldData,
+				setUsersResponse((oldUsersResponse) => ({
+					...oldUsersResponse,
 					loading: false,
 				}));
 
@@ -83,6 +77,8 @@ function UserList() {
 	}, [history, params]);
 
 	function handleSubmit(formData) {
+		if (usersResponse.loading) return;
+
 		setParams({
 			...formData,
 			currentPage: 1
@@ -93,8 +89,15 @@ function UserList() {
 		<Container>
 			<Header />
 			<section>
-				<Search onSubmit={handleSubmit}>
-					<Input type="text" name="firstName" placeholder="Pesquisar nome" />
+				<Search
+					onSubmit={handleSubmit}
+					initialData={{ firstName: params.firstName }}
+				>
+					<Input
+						type="text"
+						name="firstName"
+						placeholder="Pesquisar nome"
+					/>
 					<button type="submit">
 						<FiSearch
 							size={32}
@@ -103,6 +106,8 @@ function UserList() {
 						/>
 					</button>
 				</Search>
+				{(usersResponse.users.length === 0) ?
+				<span>Nenhum usuário foi encontrado</span> :
 				<div>
 					<Table>
 						<thead>
@@ -113,9 +118,8 @@ function UserList() {
 							</tr>
 						</thead>
 						<tbody>
-							{data.users[params.currentPage] &&
-							data.users[params.currentPage].map((user) => (
-								<tr key={user.id} >
+							{usersResponse.users.map((user) => (
+								<tr key={user.id}>
 									<td>{user.firstName}</td>
 									<td>{user.username}</td>
 									<td>{user.createdAt}</td>
@@ -124,14 +128,14 @@ function UserList() {
 						</tbody>
 					</Table>
 					<Pagination
-						pages={data.users.pages}
+						pages={usersResponse.pages}
 						currentPage={params.currentPage}
 						onPageChange={(newPage) => setParams((oldParams) => ({
 							...oldParams,
 							currentPage: newPage
 						}))}
 					/>
-				</div>
+				</div>}
 			</section>
 			<Footer />
 		</Container>

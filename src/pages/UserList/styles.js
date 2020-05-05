@@ -26,6 +26,13 @@ export const Container = styled.div`
 
 			background: #F2F2F2;
 		}
+
+		> span {
+			display: block;
+			margin-top: 24px;
+
+			font-size: 18px;
+		}
 	}
 `;
 
