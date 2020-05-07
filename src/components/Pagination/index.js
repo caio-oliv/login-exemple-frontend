@@ -14,13 +14,14 @@ function Pagination({ pages, currentPage, onPageChange }) {
 
 		if (currentPage >= 4) {
 			iteratorStart = currentPage - 1;
-			indexers.push(<span>...</span>);
+			indexers.push(<span key="span-1" >...</span>);
 		}
 
 		for (let i = iteratorStart; i < iteratorStart + indexesShown
 		&& i <= pages; i++) {
 			indexers.push(
 				<Button
+					key={i}
 					onClick={() => onPageChange(i)}
 					current={(currentPage === i) ? 'true' : 'false'}
 				>{i}</Button>
@@ -28,7 +29,7 @@ function Pagination({ pages, currentPage, onPageChange }) {
 		}
 
 		if (iteratorStart <= pages - indexesShown)
-			indexers.push(<span>...</span>);
+			indexers.push(<span key="span-2">...</span>);
 
 		return indexers;
 	}

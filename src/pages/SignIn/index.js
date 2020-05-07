@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import auth from '../../services/auth';
+
+import UserContext from '../../contexts/userContext';
 
 import Footer from '../../components/Footer';
 import Button from '../../components/Button';
@@ -11,6 +13,7 @@ import { Container, Form, Input, Link } from './styles';
 
 function SignIn() {
 	const history = useHistory();
+	const { setUser } = useContext(UserContext);
 
 	async function handleSubmit(formData) {
 		try {
@@ -21,6 +24,7 @@ function SignIn() {
 
 			const { user, token } = response.data;
 
+			setUser(user);
 			auth.login(token);
 			history.push(`/user/${user.id}`);
 

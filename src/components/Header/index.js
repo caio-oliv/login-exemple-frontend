@@ -5,21 +5,23 @@ import { FiUser, FiUsers, FiLogOut } from 'react-icons/fi';
 
 import auth from '../../services/auth';
 
+import UserContext from '../../contexts/userContext';
+
 import { Container, Link, Logout } from './styles';
 
 export default function Header() {
 	const theme = useContext(ThemeContext);
+	const { user, setUser } = useContext(UserContext);
 	const history = useHistory();
 
-	const id = 'ab290a4e-c403-476e-a0ba-2dd3e3338a49';
-
 	const links = {
-		userPage: `/user/${id}`,
+		userPage: `/user/${user.id}`,
 		userList: '/users'
 	}
 
 	function handleLogout() {
 		auth.logout();
+		setUser({});
 		history.push('/');
 	}
 
@@ -37,7 +39,7 @@ export default function Header() {
 								stroke={theme.colors.secondary}
 								style={{ verticalAlign: 'middle' }}
 							/>
-							Caio
+							{user.firstName}
 						</Link>
 					</li>
 					<li>
