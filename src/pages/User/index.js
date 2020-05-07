@@ -23,6 +23,7 @@ function User() {
 				username: undefined
 			});
 
+			alert('Campos atualizados');
 			setUser((oldUser) => ({
 				...oldUser,
 				...response.data
@@ -40,7 +41,20 @@ function User() {
 	}
 
 	async function handleDeleteUser() {
-		console.log('user deleted');
+		try {
+			await api.delete(`users/${user.id}`);
+
+			alert('Seu usuário foi deletado com sucesso');
+			setUser({});
+			history.push('/signup');
+		} catch (err) {
+			const status = err.response?.status;
+
+			if (status === 401)
+				history.push('/');
+			else
+				alert('Ocorreu um erro ao apagar, tente novamente');
+		}
 	}
 
 	document.title = `${user.firstName} ${user.lastName}`;
