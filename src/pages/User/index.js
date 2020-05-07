@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { FiTrash2 } from 'react-icons/fi';
+
+import api from '../../services/api';
+
+import UserContext from '../../contexts/userContext';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -8,15 +13,37 @@ import Button from '../../components/Button';
 import { Container, Form, Input, InputGroup } from './styles';
 
 function User() {
-	async function handleSubmit(formData) {
-		console.log(formData);
+	const history = useHistory();
+	const { user, setUser } = useContext(UserContext);
+
+	async function handleUpdateUser(formData) {
+		try {
+			const response = await api.put(`users/${user.id}`, {
+				...formData,
+				username: undefined
+			});
+
+			setUser((oldUser) => ({
+				...oldUser,
+				...response.data
+			}));
+		} catch (err) {
+			const status = err.response?.status;
+
+			if (status === 401)
+				history.push('/');
+			else if (status === 400)
+				alert('Campos mal formatados');
+			else
+				alert('Ocorreu um erro durante a atualização, tente novamente');
+		}
 	}
 
 	async function handleDeleteUser() {
 		console.log('user deleted');
 	}
 
-	document.title = 'Usuário: FakeUser';
+	document.title = `${user.firstName} ${user.lastName}`;
 
 	return (
 		<Container>
@@ -30,12 +57,12 @@ function User() {
 					/>
 					Apagar
 				</button>
-				<Form onSubmit={handleSubmit}>
-					<Input type="email" name="email" placeholder="E-mail" />
-					<Input type="text" name="username" placeholder="Usuário" />
+				<Form onSubmit={handleUpdateUser} initialData={user}>
+					<Input type="email" name="email" label="E-mail" />
+					<Input type="text" name="username" label="Usuário" readOnly />
 					<InputGroup>
-						<Input type="text" name="firstName" placeholder="Primeiro nome" />
-						<Input type="text" name="lastName" placeholder="Último nome" />
+						<Input type="text" name="firstName" label="Primeiro nome" />
+						<Input type="text" name="lastName" label="Último nome" />
 					</InputGroup>
 					<Button type="submit">Atualizar</Button>
 				</Form>
