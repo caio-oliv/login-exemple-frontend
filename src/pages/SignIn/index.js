@@ -40,6 +40,8 @@ function SignIn() {
 		}
 	}
 
+	document.title = 'Entrar';
+
 	return (
 		<Container>
 			<div>

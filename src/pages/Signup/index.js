@@ -35,6 +35,8 @@ function SignUp() {
 		}
 	}
 
+	document.title = 'Criar conta';
+
 	return (
 		<Container>
 			<div>
